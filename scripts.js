@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
             senha: senhaInput.value
         };
 
-        fetch('https://dadoscadasolo.onrender.com/login', {  // Corrigido para '/login'
+        fetch('https://dadoscadasolo.onrender.com/login', {  
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -32,10 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 mensagemSucesso.style.display = 'block';
                 emailInput.value = '';
                 senhaInput.value = '';
-                // Salvar dados do usuário ou token para permitir acesso aos dados
                 localStorage.setItem('usuarioLogado', JSON.stringify(data));
-                // Redirecionar para a URL especificada após o login bem-sucedido
-                window.location.href = 'https://front-solo-prob.vercel.app/'; // Redireciona para a URL desejada
+                window.location.href = 'https://front-solo-prob.vercel.app/'; 
             })
             .catch(error => {
                 mensagemErro.textContent = 'Erro ao fazer login.';
