@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
             senha: senhaInput.value
         };
 
-        fetch('https://dadoscadasolo.onrender.com/login', { // API de login
+        fetch('https://dadoscadasolo.onrender.com/login', {  // Corrigido para '/login'
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -27,27 +27,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 return response.json();
             })
             .then(data => {
-                // Verifica se há um identificador único no retorno da API
-                if (data.id || data.email) {
-                    const userId = data.id || data.email; // Use o identificador retornado
-                    mensagemSucesso.textContent = 'Login bem-sucedido!';
-                    mensagemErro.style.display = 'none';
-                    mensagemSucesso.style.display = 'block';
-
-                    // Salvar dados do usuário ou token no localStorage
-                    localStorage.setItem('usuarioLogado', JSON.stringify(data));
-
-                    // Redirecionar para a página do usuário específico
-                    window.location.href = `https://front-solo-prob.vercel.app/${userId}`;
-                } else {
-                    throw new Error('Identificador de usuário não encontrado.');
-                }
+                mensagemSucesso.textContent = 'Login bem-sucedido!';
+                mensagemErro.style.display = 'none';
+                mensagemSucesso.style.display = 'block';
+                emailInput.value = '';
+                senhaInput.value = '';
+                // Salvar dados do usuário ou token para permitir acesso aos dados
+                localStorage.setItem('usuarioLogado', JSON.stringify(data));
+                // Redirecionar para a página de dados do solo ou outra área protegida
+                window.location.href = '/dados-solo.html'; // Exemplo de redirecionamento
             })
             .catch(error => {
                 mensagemErro.textContent = 'Erro ao fazer login.';
                 mensagemSucesso.style.display = 'none';
                 mensagemErro.style.display = 'block';
-                console.error(error);
             });
     });
 });
