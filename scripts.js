@@ -34,8 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 senhaInput.value = '';
                 // Salvar dados do usuário ou token para permitir acesso aos dados
                 localStorage.setItem('usuarioLogado', JSON.stringify(data));
-                // Redirecionar para a página de dados do solo ou outra área protegida
-                window.location.href = '/dados-solo.html'; // Exemplo de redirecionamento
+                // Redirecionar para a URL especificada após o login bem-sucedido
+                window.location.href = 'https://front-solo-prob.vercel.app/'; // Redireciona para a URL desejada
             })
             .catch(error => {
                 mensagemErro.textContent = 'Erro ao fazer login.';
