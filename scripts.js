@@ -13,32 +13,24 @@ document.addEventListener('DOMContentLoaded', () => {
             senha: senhaInput.value
         };
 
-        fetch('https://dadoscadasolo.onrender.com/login', {  // Corrigido para '/login'
+        fetch('https://dadoscadasolo.onrender.com/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(usuario)
         })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Erro ao fazer login.');
-                }
-                return response.json();
-            })
+            .then(response => response.json())
             .then(data => {
-                mensagemSucesso.textContent = 'Login bem-sucedido!';
-                mensagemErro.style.display = 'none';
-                mensagemSucesso.style.display = 'block';
-                emailInput.value = '';
-                senhaInput.value = '';
-                // Salvar dados do usuário ou token para permitir acesso aos dados
-                localStorage.setItem('usuarioLogado', JSON.stringify(data));
-                // Redirecionar para a página de dados do solo ou outra área protegida
-                window.location.href = '/dados-solo.html'; // Exemplo de redirecionamento
+                if (data.message) {
+                    mensagemSucesso.textContent = 'Login bem-sucedido!';
+                    mensagemErro.style.display = 'none';
+                    mensagemSucesso.style.display = 'block';
+                    localStorage.setItem('usuarioId', data.usuario_id);
+                }
             })
             .catch(error => {
-                mensagemErro.textContent = 'Erro ao fazer login.';
+                mensagemErro.textContent = 'Erro no login.';
                 mensagemSucesso.style.display = 'none';
                 mensagemErro.style.display = 'block';
             });
